@@ -1,4 +1,5 @@
 import csv
+from csv import reader
 
  
 class Ajouter(): 
@@ -15,32 +16,43 @@ class LireBD():
     
     def lireFiche(self,numFiche):
         
-         with open('CritiqueFilmBD.csv') as csvfile:
-            readCSV = csv.reader(csvfile, delimiter=',')
+        with open('CritiqueFilmBD.csv', 'rt', encoding='utf-8') as f:
+            csv_reader = reader(f)
             x=0
-            for row in readCSV:
-                x+=1
+            for line in csv_reader:
+                if not line:
+                    continue 
                 if x == numFiche:
-                    return row
+                    return line
+                x+=1
                 
                 
     def nombreFiche(self):
         
-        file = open("CritiqueFilmBD.csv")
-        reader = csv.reader(file)
-        lines= len(list(reader))
-        return lines
+        with open('CritiqueFilmBD.csv', 'rt', encoding='utf-8') as f:
+            csv_reader = reader(f)
+            x=0
+            for line in csv_reader:
+                if not line:
+                    continue 
+                x+=1
+            return x
 
-    def regroupeFiche(self):
-    
-        file = open("CritiqueFilmBD.csv")
-        reader = csv.reader(file)
-        lines= len(list(reader))
-        return lines
+        
+ 
+
+
+
+        
 
 
   
     
-Ajouter().ajouterFiche("Sous le sunlight","rigolo",2000,"Gilber Montagne","blibu et bli et blou",5,"GENIAL LE FILM")
+#Ajouter().ajouterFiche("Sous le sunlight","rigolo",2000,"Gilber Montagne","blibu et bli et blou",5,"GENIAL LE FILM")
 
-print(LireBD().lireFiche(2),"     ",LireBD().nombreFiche()) 
+#print(LireBD().lireFiche(1),"     ",LireBD().nombreFiche()) 
+
+#print(LireBD().regroupeFiche(1))
+
+#LireBD().regroupeFiche(2)
+print(LireBD().nombreFiche())
