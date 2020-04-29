@@ -12,7 +12,6 @@ class Menu():
 
 
 class Message():
-
     def AfficherMessage(self,arg) :
         print(arg)
     def AfficherMessageReponse(self,arg) :
