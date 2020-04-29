@@ -38,17 +38,27 @@ class LireBD():
                 x+=1
             return x
 
+class Supprimer():
+
+    def suprrimerFiche(self,indexLigne):
+        
+        lines = list()
+        with open('CritiqueFilmBD.csv', 'r', encoding='utf-8') as f:
+            csv_reader = reader(f)
+            x=1
+            for line in csv_reader:
+                if not line:
+                    continue 
+                if x != int(indexLigne):
+                    lines.append(line)
+                x+=1
+        with open('CritiqueFilmBD.csv', 'w') as writeFile:
+            writer = csv.writer(writeFile)
+            writer.writerows(lines)
         
  
 
-
-
-        
-
-
-  
-    
-Ajouter().ajouterFiche("Sous le sunlight","rigolo",2000,"Gilber Montagne","blibu et bli et blou",5,"GENIAL LE FILM")
+#Ajouter().ajouterFiche("Sous le sunlight","rigolo",2000,"Gilber Montagne","blibu et bli et blou",5,"GENIAL LE FILM")
 
 #print(LireBD().lireFiche(1),"     ",LireBD().nombreFiche()) 
 
