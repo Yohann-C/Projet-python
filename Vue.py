@@ -1,4 +1,6 @@
 ## -*- Encoding: UTF-8 -*-  
+from Ajouter import LireBD
+
 
 class Menu():
      def AfficherMenu(self) :
@@ -11,17 +13,18 @@ class Menu():
          print(" 6- Afficher toutes les fiches triées par note \n")
          
          reponse = Message().AfficherMessageReponse("Que voulez vous faire : ")
-         def choix(reponse):
-             switcher={
-                 1: Fiche().CreerFiche,
-                 2: Fiche().SupprimerFiche,
-                 3: Fiche().ModifierFiche,
-                 4: Fiche().AfficherUneFiche,
-                 5: Fiche().AfficherLesFiches,
-                 6: Fiche().AfficherLesFichesTrie
-             }
-             return switcher.get(reponse,"Choix invalide")
-         
+         if reponse == '1':
+             Fiche().CreerFiche()
+         if reponse == '2':
+             Fiche().SupprimerFiche()
+         if reponse == '3':
+             Fiche().ModifierFiche()
+         if reponse == '4':
+            Fiche().AfficherUneFiche()
+         if reponse == '5':
+            Fiche().AfficherLesFiches()
+         if reponse == '6':
+            Fiche().AfficherLesFichesTrie()         
 
          
          
@@ -53,6 +56,8 @@ class Fiche():
          #TODO: récupérer la fiche à la position réponse et l'afficher
      def AfficherLesFiches(self):
          print('Liste des fiches :')
+         for x in range (16):
+             print(LireBD().getFiche(x))
          #TODO: récupérer tt les rapports et les afficher ligne par ligne
      def AfficherLesFichesTrie(self):
          print('Liste des fiches par note:')
@@ -69,6 +74,5 @@ class Message():
 
 
 Menu().AfficherMenu()
-print(Fiche().CreerFiche())
 
 #BITE BITE BITE BITE
