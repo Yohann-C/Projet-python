@@ -4,10 +4,10 @@ from csv import reader
  
 class Ajouter(): 
     
-    def ajouterFiche(self,nom,categorie,dateDeParution,realisateur,acteur,note,commentaire):
+    def ajouterFiche(self,nom,categorie,dateDeParution,realisateur,acteurUn,acteurDeux,acteurTrois,note,commentaire):
         with open('CritiqueFilmBD.csv', 'a') as file:
             writer = csv.writer(file, delimiter = ',')
-            writer.writerow([nom,categorie,dateDeParution,realisateur,acteur,note,commentaire])
+            writer.writerow([nom,categorie,dateDeParution,realisateur,acteurUn,acteurDeux,acteurTrois,note,commentaire])
 
     
     
@@ -48,12 +48,12 @@ class LireBD():
 
   
     
-#Ajouter().ajouterFiche("Sous le sunlight","rigolo",2000,"Gilber Montagne","blibu et bli et blou",5,"GENIAL LE FILM")
+Ajouter().ajouterFiche("Sous le sunlight","rigolo",2000,"Gilber Montagne","blibu et bli et blou",5,"GENIAL LE FILM")
 
 #print(LireBD().lireFiche(1),"     ",LireBD().nombreFiche()) 
 
 #print(LireBD().regroupeFiche(1))
 
 #LireBD().regroupeFiche(2)
-print(LireBD().nombreFiche())
+#print(LireBD().nombreFiche())
 #d
