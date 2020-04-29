@@ -1,12 +1,14 @@
 ## -*- Encoding: UTF-8 -*-  
-from Ajouter import LireBD
-from Ajouter import Ajouter
+from GestionBD import LireBD
+from GestionBD import Ajouter
 
 contenu = []
 for x in range (LireBD().nombreFiche()):
     contenu.append(LireBD().lireFiche(x))
 
+
 class Menu():
+    
     def AfficherMenu(self) :
         print(" Logiciel de critique de film \n\n")
         print(" 1- Créer une fiche \n")
@@ -15,24 +17,19 @@ class Menu():
         print(" 4- Afficher une fiche\n")
         print(" 5- Afficher toutes les fiches \n")
         print(" 6- Afficher toutes les fiches triées par note \n")
+        print(" 7- Quitter \n")
         
         reponse = Message().AfficherMessageReponse("Que voulez vous faire : ")
-        if reponse == '1':
-            Fiche().CreerFiche()
-        if reponse == '2':
-            Fiche().SupprimerFiche()
-        if reponse == '3':
-            Fiche().ModifierFiche()
-        if reponse == '4':
-           Fiche().AfficherUneFiche()
-        if reponse == '5':
-           Fiche().AfficherLesFiches()
-        if reponse == '6':
-           Fiche().AfficherLesFichesTrie()         
+        return reponse  
+
+
+
 
          
-         
 class Fiche():
+    
+    def getIndex(self):
+        return indexAModifier
 
     def CreerFiche(self) :
         listeInfoFilm = []
@@ -52,8 +49,8 @@ class Fiche():
         return listeInfoFilm
 
     def SupprimerFiche(self) :
-        #TODO: ajouter liste des fiches AfficherLesFiches()
-        Reponse = Message().AfficherMessageReponse("Quelle fiche voulez vous supprimer : ")
+        Fiche().AfficherLesFiches()
+        Reponse = int(Message().AfficherMessageReponse("Quelle fiche voulez vous supprimer : "))
         return Reponse
 
     def ModifierFiche(self) :
@@ -105,21 +102,22 @@ class Fiche():
         if reponse == 'O':
             reponse = ''
             contenu[noFiche][i] = Message().AfficherMessageReponse("Quelle est la nouvelle donnée ? : ")
+        global indexAModifier
+        indexAModifier = noFiche+1
+        return contenu[noFiche]
 
-
-        print(contenu[noFiche])
-
-
+    
     def AfficherUneFiche(self):
         
-        Reponse = int(Message().AfficherMessageReponse("Quelle fiche voulez vous afficher : "))
+        Reponse = int(Message().AfficherMessageReponse("Quelle fiche voulez vous afficher : "))-1
         print(f"\nNom du film : {(contenu[Reponse][0])} \n")
         print(f"Catégorie: {(contenu[Reponse][1])} \n")
         print(f"date de sortie : {(contenu[Reponse][2])} \n")
         print(f"réalisateur : {(contenu[Reponse][3])} \n")
-        print(f"Acteurs principaux : {(contenu[Reponse][4])} \n")
+        for x in range(3):
+            print(f"Acteurs principaux : {(contenu[Reponse][4+x])} \n")
         print(f"Note : {(contenu[Reponse][7])} \n")
-        print(f"Commentaire : {(contenu[Reponse][6])} \n")
+        print(f"Commentaire : {(contenu[Reponse][8])} \n")
 
     def AfficherLesFiches(self):
         print('Liste des fiches :')
@@ -141,8 +139,6 @@ class Fiche():
         print(contenu)
         #TODO: récupérer tt les rapports et les afficher ligne par ligne en fonction de la note
 
-
-
 class Message():
     def AfficherMessage(self,arg) :
         print(arg)
@@ -150,7 +146,3 @@ class Message():
         temp=input(arg)
         return temp
 
-
-Menu().AfficherMenu()
-
-#BITE BITE BITE BITE

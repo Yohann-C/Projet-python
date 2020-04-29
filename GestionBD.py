@@ -56,14 +56,3 @@ class Supprimer():
             writer = csv.writer(writeFile)
             writer.writerows(lines)
         
- 
-
-#Ajouter().ajouterFiche("Sous le sunlight","rigolo",2000,"Gilber Montagne","blibu et bli et blou",5,"GENIAL LE FILM")
-
-#print(LireBD().lireFiche(1),"     ",LireBD().nombreFiche()) 
-
-#print(LireBD().regroupeFiche(1))
-
-#LireBD().regroupeFiche(2)
-#print(LireBD().nombreFiche())
-#d
