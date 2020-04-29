@@ -9,6 +9,7 @@ class Menu():
          print(" 4- Afficher une fiche\n")
          print(" 5- Afficher toutes les fiches \n")
          print(" 6- Afficher toutes les fiches triées par note \n")
+         
 
 
 class Message():
