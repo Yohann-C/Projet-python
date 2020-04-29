@@ -11,16 +11,10 @@ class Menu():
          print(" 6- Afficher toutes les fiches triées par note \n")
          
          reponse = Message().AfficherMessageReponse("Que voulez vous faire : ")
-         def choix(reponse):
-             switcher={
-                 1: Fiche().CreerFiche,
-                 2: Fiche().SupprimerFiche,
-                 3: Fiche().ModifierFiche,
-                 4: Fiche().AfficherUneFiche,
-                 5: Fiche().AfficherLesFiches,
-                 6: Fiche().AfficherLesFichesTrie
-             }
-             return switcher.get(reponse,"Choix invalide")
+         if reponse == '1':
+             Fiche().CreerFiche()
+         if reponse == '2':
+             Fiche().SupprimerFiche()
          
 
          
@@ -69,6 +63,5 @@ class Message():
 
 
 Menu().AfficherMenu()
-print(Fiche().CreerFiche())
 
 #BITE BITE BITE BITE
