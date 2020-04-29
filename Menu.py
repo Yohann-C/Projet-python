@@ -24,3 +24,5 @@ Menu().AfficherMenu()
 
 NomDuFilm = Message().AfficherMessageReponse("Quelle est le nom du film : ")
 print(f'le nom est {NomDuFilm}')
+
+BITE BITE
