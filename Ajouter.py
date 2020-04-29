@@ -56,3 +56,4 @@ class LireBD():
 
 #LireBD().regroupeFiche(2)
 print(LireBD().nombreFiche())
+#d
