@@ -15,7 +15,14 @@ class Menu():
              Fiche().CreerFiche()
          if reponse == '2':
              Fiche().SupprimerFiche()
-         
+         if reponse == '3':
+             Fiche().ModifierFiche()
+         if reponse == '4':
+            Fiche().AfficherUneFiche()
+         if reponse == '5':
+            Fiche().AfficherLesFiches()
+         if reponse == '6':
+            Fiche().AfficherLesFichesTrie()         
 
          
          
