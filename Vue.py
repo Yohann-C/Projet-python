@@ -1,4 +1,6 @@
 ## -*- Encoding: UTF-8 -*-  
+from Ajouter import LireBD
+
 
 class Menu():
      def AfficherMenu(self) :
@@ -54,6 +56,8 @@ class Fiche():
          #TODO: récupérer la fiche à la position réponse et l'afficher
      def AfficherLesFiches(self):
          print('Liste des fiches :')
+         for x in range (16):
+             print(LireBD().getFiche(x))
          #TODO: récupérer tt les rapports et les afficher ligne par ligne
      def AfficherLesFichesTrie(self):
          print('Liste des fiches par note:')
