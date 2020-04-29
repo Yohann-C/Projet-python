@@ -18,7 +18,7 @@ class LireBD():
             x=0
             for row in readCSV:
                 if x == numFiche:
-                    print(row)
+                    return row
                 x+=1
                 
     
@@ -26,4 +26,4 @@ class LireBD():
     
 Ajouter().ajouterFiche("Sous le sunlight","rigolo",2000,"Gilber Montagne","blibu et bli et blou",5,"GENIAL LE FILM")
 
-LireBD().getFiche(0)
+print(LireBD().getFiche(0))
