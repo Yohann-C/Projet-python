@@ -7,23 +7,40 @@ class Ajouter():
         with open('CritiqueFilmBD.csv', 'a') as file:
             writer = csv.writer(file, delimiter = ',')
             writer.writerow([nom,categorie,dateDeParution,realisateur,acteur,note,commentaire])
+
+    
     
  
 class LireBD():
     
-    def getFiche(self,numFiche):
+    def lireFiche(self,numFiche):
         
          with open('CritiqueFilmBD.csv') as csvfile:
             readCSV = csv.reader(csvfile, delimiter=',')
             x=0
             for row in readCSV:
+                x+=1
                 if x == numFiche:
                     return row
-                x+=1
                 
+                
+    def nombreFiche(self):
+        
+        file = open("CritiqueFilmBD.csv")
+        reader = csv.reader(file)
+        lines= len(list(reader))
+        return lines
+
+    def regroupeFiche(self):
     
+        file = open("CritiqueFilmBD.csv")
+        reader = csv.reader(file)
+        lines= len(list(reader))
+        return lines
+
+
   
     
 Ajouter().ajouterFiche("Sous le sunlight","rigolo",2000,"Gilber Montagne","blibu et bli et blou",5,"GENIAL LE FILM")
 
-print(LireBD().getFiche(0))
+print(LireBD().lireFiche(2),"     ",LireBD().nombreFiche()) 
