@@ -1,6 +1,7 @@
 ## -*- Encoding: UTF-8 -*-  
 from GestionBD import LireBD
 from GestionBD import Ajouter
+from GestionBD import CategorieBD
 
 contenu = []
 for x in range (LireBD().nombreFiche()):
@@ -17,32 +18,69 @@ class Menu():
         print(" 4- Afficher une fiche\n")
         print(" 5- Afficher toutes les fiches \n")
         print(" 6- Afficher toutes les fiches triées par note \n")
-        print(" 7- Quitter \n")
+        print(" 7- Ajouter / supprimer categorie \n")
+        print(" 8- Quitter \n")
         
         reponse = Message().AfficherMessageReponse("Que voulez vous faire : ")
         return reponse  
 
+class CatégorieAffichage():
+    def MenuCategorie(self):
+        print("\n Voulez vous : \n")
+        print(" 1- Ajouter une categorie à la liste \n")
+        print(" 2- Supprimer une categorie de la liste \n")
+        reponse = Message().AfficherMessageReponse("Que voulez vous faire : ")
+        return reponse
 
-
-
-         
-class Fiche():
+    def AfficherListeCategorie(self):
+        print('Liste des categories :')
+        liste = []
+        for x in range (CategorieBD().nombreCategorie()):
+            liste.append(CategorieBD().LireBDCat(x))
+            print(x+1,"- ",liste[x][0])
     
+    def SupprimerCategorie(self):
+        CatégorieAffichage().AfficherListeCategorie()
+        rep = Message().AfficherMessageReponse("quelle catégorie voulez vous supprimer: ")
+        return rep
+    
+class Fiche():
     def getIndex(self):
         return indexAModifier
 
     def CreerFiche(self) :
         listeInfoFilm = []
         listeInfoFilm.append(Message().AfficherMessageReponse("Quel est le nom du film : "))
-        listeInfoFilm.append(Message().AfficherMessageReponse("Quelle est la catégorie du film : "))
+
+        #Choix de la catégorie parmis les disponibles
+        CatégorieAffichage().AfficherListeCategorie()
+        index = int(Message().AfficherMessageReponse("Quelle est la catégorie du film : "))
+        while index > CategorieBD().nombreCategorie():
+            Message().AfficherMessage("Voici les catégories disponibles : \n")
+            CatégorieAffichage().AfficherListeCategorie()
+            index = int(Message().AfficherMessageReponse("Quelle est la catégorie du film : "))
+            if index < CategorieBD().nombreCategorie():
+                break 
+        
+        #recupération de la catégorie sous forme de string
+        catTemp = str(CategorieBD().LireBDCat(index-1))
+        cat = ""
+        for x in range (len(catTemp)-4):
+                cat += catTemp[x+2]
+        listeInfoFilm.append(str(cat))
+
         listeInfoFilm.append(Message().AfficherMessageReponse("Quelle est la date de parution du film : "))
         listeInfoFilm.append(Message().AfficherMessageReponse("Qui est le réalisateur : "))
+
+        #boucle pour demander les 3 acteurs principaux
         for x in range (3) :
             listeInfoFilm.append(Message().AfficherMessageReponse("Qui sont les acteurs-ices principaux (3 max) "))
         note = int(Message().AfficherMessageReponse("Quelle note donnez vous au film (/5) : "))
-        while note > 5:
-            note = int(Message().AfficherMessageReponse("Quelle note donnez vous au film (/5) : "))
-            if note <= 5:
+
+        #boucle pour avoir une note forcement inferieur à 10
+        while note > 10:
+            note = int(Message().AfficherMessageReponse("Quelle note donnez vous au film (/10) : "))
+            if note <= 10:
                 break
         listeInfoFilm.append(note)
         listeInfoFilm.append(Message().AfficherMessageReponse("Commentaires : "))
@@ -53,65 +91,52 @@ class Fiche():
         Reponse = int(Message().AfficherMessageReponse("Quelle fiche voulez vous supprimer : "))
         return Reponse
 
-    def ModifierFiche(self) :
-        #TODO: ajouter liste des fiches AfficherLesFiches()
-        Fiche().AfficherLesFiches()
-        noFiche = int(Message().AfficherMessageReponse("Quelle fiche voulez vous modifier : "))-1
-        i = 0
-        print(f"\nNom du film : {(contenu[noFiche][0])} \n")
+    #fonction pour valider la validation lors de modification de fiche
+    def MessageVerification(self,*arg):
         reponse = Message().AfficherMessageReponse("voulez vous modifier cette donnée ? (O/N) : ")
         if reponse == 'O':
             reponse = ''
-            contenu[noFiche][i] = Message().AfficherMessageReponse("Quelle est la nouvelle donnée ? : ")
-        i+=1
-        print(f"\nCategorie du film : {(contenu[noFiche][1])} \n")
-        reponse = Message().AfficherMessageReponse("voulez vous modifier cette donnée ? (O/N) : ")
-        if reponse == 'O':
-            reponse = ''
-            contenu[noFiche][i] = Message().AfficherMessageReponse("Quelle est la nouvelle donnée ? : ")
-        i+=1
-        print(f"\ndate du film : {(contenu[noFiche][2])} \n")
-        reponse = Message().AfficherMessageReponse("voulez vous modifier cette donnée ? (O/N) : ")
-        if reponse == 'O':
-            reponse = ''
-            contenu[noFiche][i] = Message().AfficherMessageReponse("Quelle est la nouvelle donnée ? : ")
-        i+=1
-        print(f"\nRealisateur du film : {(contenu[noFiche][3])} \n")
-        reponse = Message().AfficherMessageReponse("voulez vous modifier cette donnée ? (O/N) : ")
-        if reponse == 'O':
-            reponse = ''
-            contenu[noFiche][i] = Message().AfficherMessageReponse("Quelle est la nouvelle donnée ? : ")
-        i+=1
-        for x in range (3):
-            i+=1
-            print(f"\nActeur principaux du film : {(contenu[noFiche][4+x])} \n")
-            reponse = Message().AfficherMessageReponse("voulez vous modifier cette donnée ? (O/N) : ")
-            if reponse == 'O':
-                reponse = ''
-                contenu[noFiche][i] = Message().AfficherMessageReponse("Quelle est la nouvelle donnée ? : ")
-                break
-        print(f"\nNote : {(contenu[noFiche][7])} \n")
-        reponse = Message().AfficherMessageReponse("voulez vous modifier cette donnée ? (O/N) : ")
-        if reponse == 'O':
-            reponse = ''
-            contenu[noFiche][i] = Message().AfficherMessageReponse("Quelle est la nouvelle donnée ? : ")
-        
-        i+=1
-        print(f"\nCategorie du film : {(contenu[noFiche][8])} \n")
-        reponse = Message().AfficherMessageReponse("voulez vous modifier cette donnée ? (O/N) : ")
-        if reponse == 'O':
-            reponse = ''
-            contenu[noFiche][i] = Message().AfficherMessageReponse("Quelle est la nouvelle donnée ? : ")
-        global indexAModifier
-        indexAModifier = noFiche+1
-        return contenu[noFiche]
+            contenu[arg[0]][arg[1]] = Message().AfficherMessageReponse("Quelle est la nouvelle donnée ? : ")
 
-    
+    #incrementation du I pour savoir sa position dans la BD
+    def ModifierFiche(self) :
+            Fiche().AfficherLesFiches()
+            noFiche = int(Message().AfficherMessageReponse("Quelle fiche voulez vous modifier : ")) -1
+            i = 0
+            print(f"\nNom du film : {(contenu[noFiche][0])} \n")
+            Fiche().MessageVerification(i,noFiche)
+            i+=1
+            print(f"\nCategorie du film : {(contenu[noFiche][1])} \n")
+            Fiche().MessageVerification(i,noFiche)
+            i+=1
+            print(f"\ndate du film : {(contenu[noFiche][2])} \n")
+            Fiche().MessageVerification(i,noFiche)
+            i+=1
+            print(f"\nRealisateur du film : {(contenu[noFiche][3])} \n")
+            Fiche().MessageVerification(i,noFiche)
+            i+=1
+            for x in range (3):
+                i+=1
+                print(f"\nActeur principaux du film : {(contenu[noFiche][4+x])} \n")
+                reponse = Message().AfficherMessageReponse("voulez vous modifier cette donnée ? (O/N) : ")
+                if reponse == 'O':
+                    reponse = ''
+                    contenu[noFiche][i] = Message().AfficherMessageReponse("Quelle est la nouvelle donnée ? : ")
+                    break
+            print(f"\nNote : {(contenu[noFiche][7])} \n")
+            Fiche().MessageVerification(i,noFiche)
+            i+=1
+            print(f"\nCommentaire : {(contenu[noFiche][8])} \n")
+            Fiche().MessageVerification(i,noFiche)
+            global indexAModifier
+            indexAModifier = noFiche+1
+            return contenu[noFiche]
+
     def AfficherUneFiche(self):
         
         Reponse = int(Message().AfficherMessageReponse("Quelle fiche voulez vous afficher : "))-1
         print(f"\nNom du film : {(contenu[Reponse][0])} \n")
-        print(f"Catégorie: {(contenu[Reponse][1])} \n")
+        print(f"Catégorie: {(contenu[Reponse][1])} \n") 
         print(f"date de sortie : {(contenu[Reponse][2])} \n")
         print(f"réalisateur : {(contenu[Reponse][3])} \n")
         for x in range(3):
@@ -126,17 +151,10 @@ class Fiche():
 
             print(x+1,"- ",contenu[x][0]," - ", contenu[x][7], "/5")
 
-    def AfficherLesFichesTrie(self):
+    def AfficherLesFichesTrie(self,*arg):
 
-    
-
-        def returnNote(contenu):
-            return contenu[x][5]
-
-        print('Liste des fiches par note:')
-        
-        sorted(contenu, key=returnNote)
-        print(contenu)
+        for x in range (LireBD().nombreFiche()):
+            print()
         #TODO: récupérer tt les rapports et les afficher ligne par ligne en fonction de la note
 
 class Message():
