@@ -149,12 +149,11 @@ class Fiche():
 
         for x in range (LireBD().nombreFiche()):
 
-            print(x+1,"- ",contenu[x][0]," - ", contenu[x][7], "/5")
+            print(x+1,"- ",contenu[x][0]," - ", contenu[x][7], "/10")
 
-    def AfficherLesFichesTrie(self,*arg):
-
-        for x in range (LireBD().nombreFiche()):
-            print()
+    def AfficherLesFichesTrie(self,arg):
+        for x in range (len(arg)):
+            print(x+1,"- ",arg[x][1]," - ", contenu[x][7], "/10")
         #TODO: récupérer tt les rapports et les afficher ligne par ligne en fonction de la note
 
 class Message():
