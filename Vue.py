@@ -7,7 +7,7 @@ contenu = []
 for x in range (LireBD().nombreFiche()):
     contenu.append(LireBD().lireFiche(x))
 
-
+#yohann
 class Menu():
     
     def AfficherMenu(self) :
@@ -24,6 +24,7 @@ class Menu():
         reponse = Message().AfficherMessageReponse("Que voulez vous faire : ")
         return reponse  
 
+#yohann
 class CatégorieAffichage():
     def MenuCategorie(self):
         print("\n Voulez vous : \n")
@@ -43,14 +44,23 @@ class CatégorieAffichage():
         CatégorieAffichage().AfficherListeCategorie()
         rep = Message().AfficherMessageReponse("quelle catégorie voulez vous supprimer: ")
         return rep
-    
+
+#yohann   
 class Fiche():
     def getIndex(self):
         return indexAModifier
 
     def CreerFiche(self) :
         listeInfoFilm = []
-        listeInfoFilm.append(Message().AfficherMessageReponse("Quel est le nom du film : "))
+
+        nom = "" 
+        while nom == "":
+            nom = ""
+            nom = Message().AfficherMessageReponse("Quel est le nom du film : ")
+            if nom != "":
+                break
+
+        listeInfoFilm.append(nom)
 
         #Choix de la catégorie parmis les disponibles
         CatégorieAffichage().AfficherListeCategorie()
@@ -75,22 +85,25 @@ class Fiche():
         #boucle pour demander les 3 acteurs principaux
         for x in range (3) :
             listeInfoFilm.append(Message().AfficherMessageReponse("Qui sont les acteurs-ices principaux (3 max) "))
-        note = int(Message().AfficherMessageReponse("Quelle note donnez vous au film (/5) : "))
+        note = int(Message().AfficherMessageReponse("Quelle note donnez vous au film (/10) : "))
 
         #boucle pour avoir une note forcement inferieur à 10
         while note > 10:
             note = int(Message().AfficherMessageReponse("Quelle note donnez vous au film (/10) : "))
             if note <= 10:
                 break
+
         listeInfoFilm.append(note)
         listeInfoFilm.append(Message().AfficherMessageReponse("Commentaires : "))
         return listeInfoFilm
 
+    #yohann
     def SupprimerFiche(self) :
         Fiche().AfficherLesFiches()
         Reponse = int(Message().AfficherMessageReponse("Quelle fiche voulez vous supprimer : "))
         return Reponse
 
+    #yohann
     #fonction pour valider la validation lors de modification de fiche
     def MessageVerification(self,*arg):
         reponse = Message().AfficherMessageReponse("voulez vous modifier cette donnée ? (O/N) : ")
@@ -98,6 +111,7 @@ class Fiche():
             reponse = ''
             contenu[arg[0]][arg[1]] = Message().AfficherMessageReponse("Quelle est la nouvelle donnée ? : ")
 
+    #yohann
     #incrementation du I pour savoir sa position dans la BD
     def ModifierFiche(self) :
             Fiche().AfficherLesFiches()
@@ -132,6 +146,7 @@ class Fiche():
             indexAModifier = noFiche+1
             return contenu[noFiche]
 
+    #yohann
     def AfficherUneFiche(self):
         
         Reponse = int(Message().AfficherMessageReponse("Quelle fiche voulez vous afficher : "))-1
@@ -144,6 +159,7 @@ class Fiche():
         print(f"Note : {(contenu[Reponse][7])} \n")
         print(f"Commentaire : {(contenu[Reponse][8])} \n")
 
+    #yohann
     def AfficherLesFiches(self):
         print('Liste des fiches :')
 
@@ -151,11 +167,13 @@ class Fiche():
 
             print(x+1,"- ",contenu[x][0]," - ", contenu[x][7], "/10")
 
+    #yohann
     def AfficherLesFichesTrie(self,arg):
-        for x in range (len(arg)):
-            print(x+1,"- ",arg[x][1]," - ", contenu[x][7], "/10")
-        #TODO: récupérer tt les rapports et les afficher ligne par ligne en fonction de la note
 
+        for x in range (0,int(len(arg)),2):
+            print(x+1,"- ",arg[x]," - ", arg[x+1], "/10")
+            
+#yohann
 class Message():
     def AfficherMessage(self,arg) :
         print(arg)
